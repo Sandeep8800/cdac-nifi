@@ -1,0 +1,99 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="login-container min-h-screen flex items-center justify-center p-4">
+    <div class="login-card bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md border border-gray-100">
+        <!-- DataVahak Logo/Branding -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mb-4">
+                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">DataVahak</h1>
+            <p class="text-gray-600 text-sm">Data Integration Platform</p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="login-form">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-800">Welcome Back</h2>
+                <div class="flex gap-x-3 text-sm">
+                    @if (logoutSupported()) {
+                        <a (click)="logout()" class="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors">
+                            Log Out
+                        </a>
+                    }
+                    <a (click)="resetRoutedToFullScreenError()" [routerLink]="['/']" 
+                       class="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors">
+                        Home
+                    </a>
+                </div>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-6">
+                <!-- Username Field -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username" type="text" autofocus 
+                               class="text-gray-700" />
+                        <mat-icon matPrefix class="text-gray-400 mr-2">person</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password" type="password" 
+                               class="text-gray-700" />
+                        <mat-icon matPrefix class="text-gray-400 mr-2">lock</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Login Button -->
+                <div class="pt-4">
+                    <button
+                        [disabled]="!loginForm.dirty || loginForm.invalid || loginForm.pending"
+                        type="submit"
+                        mat-flat-button
+                        class="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 
+                               text-white font-medium rounded-lg transition-all duration-200 transform hover:scale-[1.02] 
+                               disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg">
+                        <span class="flex items-center justify-center gap-2">
+                            @if (loginForm.pending) {
+                                <mat-spinner diameter="20" class="text-white"></mat-spinner>
+                                <span>Signing In...</span>
+                            } @else {
+                                <mat-icon>login</mat-icon>
+                                <span>Sign In</span>
+                            }
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Additional Info -->
+            <div class="mt-8 text-center">
+                <p class="text-xs text-gray-500">
+                    Secure access to your data integration platform
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
